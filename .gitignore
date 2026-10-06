@@ -31,3 +31,7 @@ Thumbs.db
 
 # Results (keep figures, ignore large files)
 results/metrics/*.json
+
+# Local documentation (Do not push)
+PROJECT_GUIDE.md
+docs/
