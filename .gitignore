@@ -1,0 +1,33 @@
+# Data files
+data/raw/*.csv
+data/processed/
+
+# Model artifacts
+models/*.pkl
+models/*.pkl.bak
+models/*.joblib
+models/*.h5
+models/*.pt
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Results (keep figures, ignore large files)
+results/metrics/*.json
