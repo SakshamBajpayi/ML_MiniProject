@@ -288,7 +288,7 @@ export default function Predict() {
                 <div className="mt-10 border-t border-[var(--color-border-subtle)] pt-6 grid grid-cols-2 gap-4">
                   <div>
                     <p className="text-[10px] font-mono tracking-widest text-[var(--color-text-tertiary)] uppercase mb-1">ACTIVE MODEL</p>
-                    <p className="text-xs text-white">Multi-Layer Perceptron</p>
+                    <p className="text-xs text-white">XGBoost</p>
                   </div>
                   <div>
                     <p className="text-[10px] font-mono tracking-widest text-[var(--color-text-tertiary)] uppercase mb-1">INFERENCE TIME</p>

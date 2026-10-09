@@ -15,6 +15,23 @@ def predict_single(features_dict, model_path='models/best_model.pkl',
             f"Model or preprocessor not found at {model_path}, {preprocessor_path}. "
             "Please run train.py and evaluate.py first."
         )
+
+    # Need XGBWrapper for unpickling the XGBoost model
+    class XGBWrapper:
+        def __init__(self, model, le):
+            self.model = model
+            self.le = le
+            self.classes_ = le.classes_
+            
+        def predict(self, X):
+            preds = self.model.predict(X)
+            return self.le.inverse_transform(preds)
+            
+        def predict_proba(self, X):
+            return self.model.predict_proba(X)
+            
+    import __main__
+    __main__.XGBWrapper = XGBWrapper
         
     model = joblib.load(model_path)
     preprocessor = joblib.load(preprocessor_path)

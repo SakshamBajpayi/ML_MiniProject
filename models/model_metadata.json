@@ -1,1 +1,1 @@
-{"best_model": "MLP", "micro_f1": 0.6862684906275781}
+{"best_model": "XGBoost", "micro_f1": 0.7464745496057251}

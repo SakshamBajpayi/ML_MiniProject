@@ -7,7 +7,26 @@ import seaborn as sns
 import os
 from sklearn.metrics import accuracy_score, f1_score, confusion_matrix, classification_report
 
+
+class XGBWrapper:
+    def __init__(self, model, le):
+        self.model = model
+        self.le = le
+        self.classes_ = le.classes_
+        
+    def predict(self, X):
+        preds = self.model.predict(X)
+        return self.le.inverse_transform(preds)
+        
+    def predict_proba(self, X):
+        return self.model.predict_proba(X)
+        
+    @property
+    def feature_importances_(self):
+        return self.model.feature_importances_
+        
 def evaluate_model(model, X_val, y_val, model_name):
+
     """Compute metrics for a model."""
     print(f"Evaluating {model_name}...")
     y_pred = model.predict(X_val)
@@ -79,7 +98,12 @@ def plot_feature_importance(model, feature_names, save_path):
     plt.savefig(save_path, dpi=150)
     plt.close()
 
+
+import __main__
+__main__.XGBWrapper = XGBWrapper
+
 def main():
+
     print("=" * 60)
     print("MODEL EVALUATION")
     print("=" * 60)
@@ -110,6 +134,8 @@ def main():
         models['MLP'] = joblib.load('models/mlp_model.pkl')
     if os.path.exists('models/rf_model.pkl'):
         models['Random Forest'] = joblib.load('models/rf_model.pkl')
+    if os.path.exists('models/xgb_model.pkl'):
+        models['XGBoost'] = joblib.load('models/xgb_model.pkl')
         
     if not models:
         print("ERROR: No trained models found in models/ directory.")
@@ -131,6 +157,8 @@ def main():
         # Specific model plots
         if name == 'Random Forest':
             plot_feature_importance(model, feature_names, "results/figures/feature_importance_rf.png")
+        if name == 'XGBoost':
+            plot_feature_importance(model, feature_names, "results/figures/feature_importance_xgb.png")
             
         # Track best model
         if res['micro_f1'] > best_score:
@@ -172,7 +200,7 @@ def main():
     
     # Copy best model to best_model.pkl
     import shutil
-    best_file_map = {'KNN': 'knn_model.pkl', 'MLP': 'mlp_model.pkl', 'Random Forest': 'rf_model.pkl'}
+    best_file_map = {'KNN': 'knn_model.pkl', 'MLP': 'mlp_model.pkl', 'Random Forest': 'rf_model.pkl', 'XGBoost': 'xgb_model.pkl'}
     src_file = f"models/{best_file_map[best_model_name]}"
     shutil.copy(src_file, 'models/best_model.pkl')
     

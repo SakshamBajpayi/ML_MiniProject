@@ -5,8 +5,8 @@ export default function Overview() {
     { label: 'DATASET SCALE', value: '260,601', suffix: ' BLDGS' },
     { label: 'FEATURE COUNT', value: '38', suffix: ' VARS' },
     { label: 'DAMAGE CLASSES', value: '3', suffix: ' GRADES' },
-    { label: 'BEST MODEL', value: 'MLP', suffix: ' NETWORK' },
-    { label: 'PRIMARY METRIC', value: '0.686', suffix: ' μ-F1' },
+    { label: 'BEST MODEL', value: 'XGBoost', suffix: ' ENSEMBLE' },
+    { label: 'PRIMARY METRIC', value: '0.747', suffix: ' μ-F1' },
   ];
 
   return (
@@ -56,8 +56,8 @@ export default function Overview() {
           <h3 className="text-sm font-medium text-white mb-4">Architecture</h3>
           <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
             The prediction pipeline incorporates categorical encoding, standard scaling, and 
-            is currently powered by a tuned Multi-Layer Perceptron (Neural Network) demonstrating 
-            superior multi-class performance over Random Forest and KNN baselines.
+            is currently powered by a highly-tuned XGBoost ensemble demonstrating 
+            superior multi-class performance over Random Forest, MLP, and KNN baselines.
           </p>
         </div>
         <div>
